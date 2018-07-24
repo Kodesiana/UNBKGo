@@ -15,6 +15,20 @@ namespace UNBKGo.Server
         public Form1()
         {
             InitializeComponent();
+            dgv.Rows.Add();
+            var row = dgv.Rows[0];
+            row.Cells[0].Value = "FAHMI-PC";
+            row.Cells[1].Value = "192.168.1.101";
+            row.Cells[2].Value = "FF-FF-FF-FF-FF-FF";
+            row.Cells[3].Value = "OK";
+        }
+
+        private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgv.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            {
+                //TODO - Button Clicked - Execute Code Here
+            }
         }
     }
 }
