@@ -40,14 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPAddressExtensions.cs" />
-    <Compile Include="MessageFrame.cs" />
-    <Compile Include="ServerCommand.cs" />
-    <Compile Include="UnbkClient.cs" />
-    <Compile Include="UnbkFileServer.cs" />
+    <Compile Include="Net\ConfigArrivedEventArgs.cs" />
+    <Compile Include="Net\IPAddressExtensions.cs" />
+    <Compile Include="Net\MessageFrame.cs" />
+    <Compile Include="Net\ServerCommand.cs" />
+    <Compile Include="Net\UnbkClient.cs" />
+    <Compile Include="Net\UnbkConfig.cs" />
+    <Compile Include="Net\UnbkFileServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnbkNode.cs" />
-    <Compile Include="UnbkServer.cs" />
+    <Compile Include="Net\UnbkNode.cs" />
+    <Compile Include="Net\UnbkServer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Management\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

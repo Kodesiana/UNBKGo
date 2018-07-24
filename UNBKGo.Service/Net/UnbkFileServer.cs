@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace UNBKGo.Service
+namespace UNBKGo.Service.Net
 {
     public class UnbkFileServer
     {
