@@ -30,8 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Win32.TaskScheduler, Version=2.8.4.0, Culture=neutral, PublicKeyToken=c416bc1b32d97233, processorArchitecture=MSIL">
+      <HintPath>..\packages\TaskScheduler.2.8.4\lib\net40\Microsoft.Win32.TaskScheduler.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Management\StartupInstaller.cs" />
     <Compile Include="Net\ConfigArrivedEventArgs.cs" />
     <Compile Include="Net\IPAddressExtensions.cs" />
     <Compile Include="Net\MessageFrame.cs" />
@@ -51,8 +56,9 @@
     <Compile Include="Net\UnbkNode.cs" />
     <Compile Include="Net\UnbkServer.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Management\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
