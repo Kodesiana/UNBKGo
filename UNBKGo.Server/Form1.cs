@@ -15,12 +15,9 @@ namespace UNBKGo.Server
         public Form1()
         {
             InitializeComponent();
-            dgv.Rows.Add();
-            var row = dgv.Rows[0];
-            row.Cells[0].Value = "FAHMI-PC";
-            row.Cells[1].Value = "192.168.1.101";
-            row.Cells[2].Value = "FF-FF-FF-FF-FF-FF";
-            row.Cells[3].Value = "OK";
+            dgv.AutoGenerateColumns = false;
+            
+            
         }
 
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -29,6 +26,11 @@ namespace UNBKGo.Server
             {
                 //TODO - Button Clicked - Execute Code Here
             }
+        }
+
+        private void cmdStartServer_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

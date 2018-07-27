@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UNBKGo.Service", "UNBKGo.Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UNBKGo.CLI", "UNBKGo.CLI\UNBKGo.CLI.csproj", "{EA6F82D2-3325-44E3-BBB8-2A96F6EB6B01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UNBKGo.Admin", "UNBKGo.Admin\UNBKGo.Admin.csproj", "{6074BB6B-7509-43F7-B3E3-8E66E896E85E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{EA6F82D2-3325-44E3-BBB8-2A96F6EB6B01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA6F82D2-3325-44E3-BBB8-2A96F6EB6B01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA6F82D2-3325-44E3-BBB8-2A96F6EB6B01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6074BB6B-7509-43F7-B3E3-8E66E896E85E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6074BB6B-7509-43F7-B3E3-8E66E896E85E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6074BB6B-7509-43F7-B3E3-8E66E896E85E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6074BB6B-7509-43F7-B3E3-8E66E896E85E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
