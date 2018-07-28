@@ -20,7 +20,6 @@
 
                 <!-- Converters -->
                 <ResourceDictionary>
-                    <converters:PassthroughConverter x:Key="PassthroughConverter"/>
                     <converters:StatusToBrushConverter x:Key="StatusToBrushConverter"/>
                     <converters:StatusToStringConverter x:Key="StatusToStringConverter"/>
                 </ResourceDictionary>
