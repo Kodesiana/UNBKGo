@@ -10,27 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MahApps.Metro.Controls;
 
 namespace UNBKGo.Admin.Views
 {
     /// <summary>
-    /// Interaction logic for ShellView.xaml
+    /// Interaction logic for StorageView.xaml
     /// </summary>
-    public partial class ShellView
+    public partial class StorageView : UserControl
     {
-        public ShellView()
+        public StorageView()
         {
             InitializeComponent();
-        }
-
-        private void HamburgerMenuControl_OnItemClick(object sender, ItemClickEventArgs e)
-        {
-            // set the content
-            this.HamburgerMenuControl.Content = e.ClickedItem;
-            // close the pane
-            //this.HamburgerMenuControl.IsPaneOpen = false;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿<Application x:Class="UNBKGo.Admin.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:UNBKGo.Admin"
+             xmlns:converters="clr-namespace:UNBKGo.Admin.Domain.Converters"
              StartupUri="Views/ShellView.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -14,6 +14,16 @@
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+
+                <!-- Icons -->
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+
+                <!-- Converters -->
+                <ResourceDictionary>
+                    <converters:PassthroughConverter x:Key="PassthroughConverter"/>
+                    <converters:StatusToBrushConverter x:Key="StatusToBrushConverter"/>
+                    <converters:StatusToStringConverter x:Key="StatusToStringConverter"/>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

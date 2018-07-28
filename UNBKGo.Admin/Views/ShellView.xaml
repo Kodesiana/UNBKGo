@@ -5,64 +5,98 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UNBKGo.Admin.Views"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:ViewModels="clr-namespace:UNBKGo.Admin.ViewModels" 
-    xmlns:Domain="clr-namespace:UNBKGo.Admin.Domain" 
-    x:Class="UNBKGo.Admin.Views.ShellView"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        x:Class="UNBKGo.Admin.Views.ShellView"
         mc:Ignorable="d"
-        Title="ShellView" Height="450" Width="800">
-    <mah:MetroWindow.DataContext>
-        <ViewModels:ShellViewModel/>
-    </mah:MetroWindow.DataContext>
-    <StackPanel>
-        <TextBox x:Name="Name" />
-        <Button x:Name="SayHello"
-                Content="Click Me" />
-        
-        <DataGrid Height="339" x:Name="dgv" ItemsSource="{Binding Dgv}" AutoGenerateColumns="False" CanUserAddRows="False">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.Width>
-                        <DataGridLength>130</DataGridLength>
-                    </DataGridTemplateColumn.Width>
-                    <DataGridTemplateColumn.Header>Status</DataGridTemplateColumn.Header>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Ellipse Fill="GreenYellow"
-                                         Height="20"
-                                         Width="20" Margin="5,0,8,0"/>
-                                <TextBlock Text="{Binding Status}" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Hostname" Binding="{Binding Hostname}" Width="100"
-                                    IsReadOnly="True" />
-                <DataGridTextColumn Header="IP Address" Binding="{Binding IpAddress}" Width="140"
-                                    IsReadOnly="True" />
-                <DataGridTextColumn Header="Physical Address" Binding="{Binding PhysicalAddress}"
-                                    Width="140" IsReadOnly="True" />
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.Width>
-                        <DataGridLength>230</DataGridLength>
-                    </DataGridTemplateColumn.Width>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Content="Sync"/>
-                                <Button Grid.Column="1" Content="ExamBro"/>
-                                <Button Grid.Column="2" Content="Shutdown"/>
-                            </Grid>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-    </StackPanel>
+        Title="UNBKGo" Height="450" Width="800">
+
+    <!-- Resources -->
+    <mah:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/HamburgerMenuTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <!-- Hamburger Menu -->
+            <DataTemplate x:Key="HamburgerMenuItem" DataType="{x:Type mah:HamburgerMenuGlyphItem}">
+                <DockPanel Height="48" LastChildFill="True">
+                    <Grid x:Name="IconPart" Width="48" DockPanel.Dock="Left">
+                        <iconPacks:PackIconModern Margin="12" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="{Binding Glyph}" />
+                    </Grid>
+                    <TextBlock x:Name="TextPart" VerticalAlignment="Center" FontSize="16" Text="{Binding Label}" />
+                </DockPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </mah:MetroWindow.Resources>
+    
+    <mah:HamburgerMenu x:Name="HamburgerMenuControl" HamburgerWidth="48" SelectedIndex="0" VerticalScrollBarOnLeftSide="False"
+                       ItemClick="HamburgerMenuControl_OnItemClick" OptionsItemClick="HamburgerMenuControl_OnItemClick"
+                       ItemTemplate="{StaticResource HamburgerMenuItem}" OptionsItemTemplate="{StaticResource HamburgerMenuItem}">
+        <!--  Header  -->
+        <mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
+            <DataTemplate>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Foreground="White" Text="UNBKGo" />
+            </DataTemplate>
+        </mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
+
+        <!--  Items  -->
+        <mah:HamburgerMenu.ItemsSource>
+            <mah:HamburgerMenuItemCollection>
+                <mah:HamburgerMenuGlyphItem Glyph="Home" Label="Overview">
+                    <mah:HamburgerMenuGlyphItem.Tag>
+                        <local:HomeView />
+                    </mah:HamburgerMenuGlyphItem.Tag>
+                </mah:HamburgerMenuGlyphItem>
+                <mah:HamburgerMenuGlyphItem Glyph="Network" Label="Network">
+                    <mah:HamburgerMenuGlyphItem.Tag>
+                        <local:NetworkView />
+                    </mah:HamburgerMenuGlyphItem.Tag>
+                </mah:HamburgerMenuGlyphItem>
+                <mah:HamburgerMenuGlyphItem Glyph="CabinetFiles" Label="Storage">
+                    <mah:HamburgerMenuGlyphItem.Tag>
+                        <local:StorageView />
+                    </mah:HamburgerMenuGlyphItem.Tag>
+                </mah:HamburgerMenuGlyphItem>
+                <mah:HamburgerMenuGlyphItem Glyph="Tools" Label="Tools">
+                    <mah:HamburgerMenuGlyphItem.Tag>
+                        <local:ToolView />
+                    </mah:HamburgerMenuGlyphItem.Tag>
+                </mah:HamburgerMenuGlyphItem>
+            </mah:HamburgerMenuItemCollection>
+        </mah:HamburgerMenu.ItemsSource>
+
+        <!--  Options  -->
+        <mah:HamburgerMenu.OptionsItemsSource>
+            <mah:HamburgerMenuItemCollection>
+                <mah:HamburgerMenuGlyphItem Glyph="Information" Label="About">
+                    <mah:HamburgerMenuGlyphItem.Tag>
+                        <local:AboutView />
+                    </mah:HamburgerMenuGlyphItem.Tag>
+                </mah:HamburgerMenuGlyphItem>
+            </mah:HamburgerMenuItemCollection>
+        </mah:HamburgerMenu.OptionsItemsSource>
+
+        <!--  Content  -->
+        <mah:HamburgerMenu.ContentTemplate>
+            <DataTemplate DataType="{x:Type mah:HamburgerMenuItem}">
+                <Grid x:Name="ContentGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Margin="-1 0 -1 0" Background="#7A7A7A">
+                        <TextBlock x:Name="Header" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Foreground="White" Text="{Binding Label}" />
+                    </Border>
+                    <mah:TransitioningContentControl Grid.Row="1" RestartTransitionOnContentChange="True" Transition="Default" Content="{Binding Tag}">
+                        <mah:TransitioningContentControl.ContentTemplate>
+                            <DataTemplate>
+                                <ContentControl Focusable="False" Content="{Binding}" />
+                            </DataTemplate>
+                        </mah:TransitioningContentControl.ContentTemplate>
+                    </mah:TransitioningContentControl>
+                </Grid>
+            </DataTemplate>
+        </mah:HamburgerMenu.ContentTemplate>
+    </mah:HamburgerMenu>
 </mah:MetroWindow>
 
