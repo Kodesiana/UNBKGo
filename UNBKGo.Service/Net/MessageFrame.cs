@@ -1,62 +1,62 @@
 ﻿using System;
 using System.IO;
-using System.Text;
+using System.Linq;
+using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace UNBKGo.Service.Net
 {
     public class MessageFrame
     {
-        private MemoryStream _ms;
+        private readonly BinaryFormatter _formatter = new BinaryFormatter();
+        private readonly byte[] _data;
 
-        public long TotalLength { get; private set; } = -1;
-        public bool IsCompleted => _ms.Length - 8 == TotalLength;
+        public static readonly object DefaultState = new object();
 
-        public MessageFrame()
+        public Command Command { get; set; }
+        public object State { get; set; }
+
+        public MessageFrame(byte[] msg)
         {
-            _ms = new MemoryStream();
+            // message length
+            var size = BitConverter.ToInt64(msg, 0);
+            if (msg.Length - 8 < size) throw new ProtocolViolationException("Message is fragmented.");
+
+            // real message
+            Command = (Command) BitConverter.ToInt64(msg, 8);
+            State = Deserialize(msg.Skip(16).ToArray());
         }
 
-        public MessageFrame(byte[] buffer)
+        public MessageFrame(Command command, object state)
         {
-            _ms = new MemoryStream();
+            byte[] commandBuffer = BitConverter.GetBytes((long) command);
+            byte[] stateBuffer = state == null ? Serialize(DefaultState) : Serialize(state);
 
-            TotalLength = BitConverter.ToInt64(buffer, 0);
-            _ms.Write(buffer, 0, buffer.Length);
+            _data = BitConverter.GetBytes((long)(commandBuffer.Length + stateBuffer.Length))
+                .Concat(commandBuffer)
+                .Concat(stateBuffer).ToArray();
         }
 
-        public MessageFrame(string message)
+        public byte[] ToBytes()
         {
-            _ms = new MemoryStream();
-            var buffer = Encoding.UTF8.GetBytes(message);
-            var lengthBuffer = BitConverter.GetBytes(buffer.LongLength);
-
-            _ms.Write(lengthBuffer, 0, lengthBuffer.Length);
-            _ms.Write(buffer, 0, buffer.Length);
+            return _data;
         }
 
-        public void WriteFramedBuffer(byte[] buffer)
+        private byte[] Serialize(object obj)
         {
-            if (TotalLength == -1) TotalLength = BitConverter.ToInt64(buffer, 0);
-            _ms.Write(buffer, 0, buffer.Length);
+            using (var ms = new MemoryStream())
+            {
+                _formatter.Serialize(ms, obj);
+                return ms.ToArray();
+            }
         }
 
-        public byte[] GetFramedBuffer()
+        private object Deserialize(byte[] buffer)
         {
-            _ms.Position = 0;
-            return _ms.ToArray();
-        }
-
-        public string GetFramedString()
-        {
-            _ms.Position = 0;
-
-            var buffer = new byte[8];
-            _ms.Read(buffer, 0, buffer.Length);
-            var size = BitConverter.ToInt64(buffer, 0);
-
-            buffer = new byte[size];
-            _ms.Read(buffer, 0, buffer.Length);
-            return Encoding.UTF8.GetString(buffer);
+            using (var ms = new MemoryStream(buffer))
+            {
+                return _formatter.Deserialize(ms);
+            }
         }
     }
 }
